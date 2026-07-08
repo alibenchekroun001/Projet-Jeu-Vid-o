@@ -1,0 +1,663 @@
+/* Écran de création de personnage inspiré de Dofus Unity :
+   ciel étoilé bleu/violet, île flottante, panneaux sombres arrondis,
+   iconographie vectorielle uniquement */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+.cc {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 330px 1fr 330px;
+    gap: 20px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    color: #e8e6e1;
+    overflow: hidden;
+    background: #1b2c4f;
+}
+
+/* ---------- Ciel ---------- */
+
+.cc-sky {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(1200px 800px at 50% 42%, #7fd4e8 0%, #4a9fd4 30%, #2e5f9e 55%, #243a6e 75%, #1f2447 100%);
+    pointer-events: none;
+}
+
+.cc-stars {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, #fff 60%, transparent),
+        radial-gradient(2px 2px at 28% 8%, rgba(255, 255, 255, 0.9) 60%, transparent),
+        radial-gradient(1.5px 1.5px at 44% 14%, #fff 60%, transparent),
+        radial-gradient(2px 2px at 61% 6%, rgba(255, 255, 255, 0.85) 60%, transparent),
+        radial-gradient(1.5px 1.5px at 76% 16%, #fff 60%, transparent),
+        radial-gradient(2px 2px at 89% 10%, rgba(255, 255, 255, 0.9) 60%, transparent),
+        radial-gradient(1.5px 1.5px at 8% 42%, rgba(255, 255, 255, 0.7) 60%, transparent),
+        radial-gradient(1.5px 1.5px at 93% 38%, rgba(255, 255, 255, 0.7) 60%, transparent),
+        radial-gradient(2px 2px at 70% 30%, rgba(255, 255, 255, 0.8) 60%, transparent),
+        radial-gradient(1.5px 1.5px at 35% 28%, rgba(255, 255, 255, 0.75) 60%, transparent);
+    animation: twinkle 4s ease-in-out infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.55; }
+    to { opacity: 1; }
+}
+
+.cc-clouds {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(700px 420px at 0% 100%, rgba(104, 68, 148, 0.75), transparent 65%),
+        radial-gradient(700px 420px at 100% 100%, rgba(120, 76, 160, 0.7), transparent 65%),
+        radial-gradient(500px 300px at 85% 55%, rgba(88, 110, 200, 0.35), transparent 65%);
+}
+
+/* ---------- Bouton musique ---------- */
+
+.cc-music {
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    z-index: 10;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(24, 24, 28, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.cc-music:hover {
+    transform: scale(1.08);
+    background: rgba(50, 50, 58, 0.9);
+}
+
+/* ---------- Panneaux ---------- */
+
+.cc-panel {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+.cc-section {
+    padding: 16px;
+    background: rgba(24, 24, 28, 0.92);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.cc-section-title {
+    margin: 0;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #cfccc5;
+}
+
+/* ---------- Grille de classes ---------- */
+
+.cc-class-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 14px;
+    background: rgba(24, 24, 28, 0.92);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.cc-class-tile {
+    --accent: #cfccc5;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    background: #3a3a41;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.cc-class-tile:hover {
+    transform: scale(1.08);
+    background: #47474f;
+}
+
+.cc-class-tile.selected {
+    border-color: #fff;
+    background: #4d4d56;
+}
+
+.cc-random {
+    color: #9d9da6;
+}
+
+/* ---------- Encart de classe ---------- */
+
+.cc-class-info {
+    padding: 22px 20px;
+    background: rgba(24, 24, 28, 0.92);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    text-align: center;
+}
+
+.cc-class-subtitle {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #f0eee9;
+}
+
+.cc-divider {
+    --accent: #f4c260;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.cc-divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+}
+
+.cc-divider-icons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent);
+}
+
+.cc-class-description {
+    margin: 0;
+    font-size: 0.86rem;
+    line-height: 1.65;
+    color: #c9c6bf;
+    text-align: left;
+}
+
+.cc-spells {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.cc-spell {
+    --accent: #f4c260;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    border-radius: 10px;
+    background: linear-gradient(160deg, color-mix(in srgb, var(--accent) 65%, #222) 0%, color-mix(in srgb, var(--accent) 30%, #16161a) 100%);
+    border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+    box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.25), 0 3px 8px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.cc-spell:hover {
+    transform: translateY(-3px) scale(1.08);
+}
+
+.cc-ghost-button {
+    width: 100%;
+    padding: 11px;
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #e8e6e1;
+    background: #3a3a41;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.cc-ghost-button:hover {
+    background: #4d4d56;
+}
+
+/* ---------- Centre ---------- */
+
+.cc-center {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding-top: 6px;
+}
+
+.cc-class-name {
+    text-align: center;
+    animation: fade-down 0.5s ease both;
+}
+
+.cc-class-name h1 {
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.cc-star {
+    color: #fff;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes fade-down {
+    from { opacity: 0; transform: translateY(-14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Scène --- */
+
+.cc-stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    flex: 1;
+    width: 100%;
+}
+
+.cc-rotate {
+    z-index: 2;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    border: 2px solid rgba(255, 255, 255, 0.55);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.cc-rotate:hover {
+    background: rgba(255, 255, 255, 0.28);
+    transform: scale(1.1);
+}
+
+.cc-island {
+    position: relative;
+    width: min(420px, 60%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: island-float 6s ease-in-out infinite;
+}
+
+@keyframes island-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+}
+
+.cc-hero {
+    position: relative;
+    z-index: 2;
+    margin-bottom: -34px;
+    transition: transform 0.25s ease;
+}
+
+.cc-hero-svg {
+    width: 220px;
+    height: auto;
+    filter: drop-shadow(0 18px 22px rgba(0, 0, 0, 0.45));
+}
+
+.cc-island-top {
+    width: 100%;
+    height: 110px;
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 50% 35%, #e9e2cf 0%, #d3c9ae 55%, #b7ab8d 100%);
+    box-shadow:
+        inset 0 -14px 24px rgba(0, 0, 0, 0.18),
+        0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.cc-island-rock {
+    width: 72%;
+    height: 120px;
+    margin-top: -34px;
+    background: linear-gradient(180deg, #a99c7f 0%, #6e6350 45%, #4a4238 100%);
+    clip-path: polygon(6% 0%, 94% 0%, 82% 38%, 68% 72%, 52% 100%, 40% 74%, 24% 46%, 12% 22%);
+    filter: drop-shadow(0 24px 24px rgba(10, 15, 40, 0.5));
+}
+
+/* --- Nom du personnage --- */
+
+.cc-name-box {
+    z-index: 2;
+    margin-top: -10px;
+    padding: 14px 18px;
+    background: rgba(24, 24, 28, 0.94);
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 300px;
+}
+
+.cc-name-box label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e8e6e1;
+}
+
+.cc-name-row {
+    display: flex;
+    gap: 8px;
+}
+
+.cc-name-row input {
+    flex: 1;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #fff;
+    background: #141417;
+    border: 1px solid #3a3a41;
+    border-radius: 8px;
+    outline: none;
+}
+
+.cc-name-row input:focus {
+    border-color: #7fd4e8;
+}
+
+/* --- Bouton JOUER hexagonal --- */
+
+.cc-play {
+    margin-top: 16px;
+    padding: 16px 64px;
+    font-family: inherit;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(180deg, #57575e 0%, #2e2e33 55%, #1d1d21 100%);
+    border: 2px solid #6e6e77;
+    clip-path: polygon(4% 0%, 96% 0%, 100% 50%, 96% 100%, 4% 100%, 0% 50%);
+    cursor: pointer;
+    transition: filter 0.15s ease, transform 0.15s ease;
+}
+
+.cc-play:hover {
+    filter: brightness(1.25);
+    transform: scale(1.04);
+}
+
+.cc-play:active {
+    transform: scale(0.98);
+}
+
+.cc-play:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.cc-error {
+    z-index: 2;
+    margin: 10px 0 0;
+    padding: 8px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffd7d2;
+    background: rgba(140, 30, 30, 0.85);
+    border: 1px solid rgba(255, 120, 110, 0.5);
+    border-radius: 10px;
+}
+
+/* ---------- Coiffures ---------- */
+
+.cc-hair-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.cc-hair-tile {
+    aspect-ratio: 1;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #3a3a41;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.cc-hair-tile svg {
+    width: 100%;
+    height: 100%;
+}
+
+.cc-hair-tile:hover {
+    transform: scale(1.06);
+    background: #47474f;
+}
+
+.cc-hair-tile.selected {
+    border-color: #fff;
+    background: #4d4d56;
+}
+
+/* ---------- Couleurs ---------- */
+
+.cc-color-tools {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cc-color-tools .cc-section-title {
+    margin-right: auto;
+}
+
+.cc-color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cc-color-label {
+    flex: 1;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #cfccc5;
+}
+
+/* sélecteur de couleur natif, stylé comme une pastille */
+.cc-color-input {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cc-color-input::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.cc-color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.cc-color-input::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+}
+
+.cc-hex {
+    width: 78px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #e8e6e1;
+    background: #141417;
+    border: 1px solid #3a3a41;
+    border-radius: 7px;
+    padding: 6px 6px;
+    text-align: center;
+}
+
+.cc-shuffle {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+    background: #3a3a41;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.cc-shuffle:hover {
+    background: #4d4d56;
+    transform: scale(1.08);
+}
+
+/* ---------- Attitudes & équipements ---------- */
+
+.cc-attitudes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cc-attitude {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f2c94c;
+    background: #3a3a41;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.cc-attitude:hover {
+    transform: scale(1.1);
+}
+
+.cc-attitude.selected {
+    border-color: #fff;
+    background: #4d4d56;
+}
+
+.cc-equipment {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cc-equip-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 7px 14px;
+    border-radius: 999px;
+    background: #3a3a41;
+    color: #e8e6e1;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1100px) {
+    .cc {
+        grid-template-columns: 1fr;
+    }
+
+    .cc-panel {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .cc-left {
+        order: 2;
+    }
+
+    .cc-center {
+        order: 1;
+        min-height: 70vh;
+    }
+
+    .cc-right {
+        order: 3;
+    }
+
+    .cc-class-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+}

@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+.gm {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    padding: 20px;
+    box-sizing: border-box;
+    font-family: 'Nunito', 'Segoe UI', sans-serif;
+    color: #e8e6e1;
+    background:
+        radial-gradient(1000px 700px at 50% 0%, #3f7a52 0%, #2c5a3f 45%, #1d3c2c 80%, #142a1f 100%);
+}
+
+.gm-empty {
+    justify-content: center;
+}
+
+.gm-empty button {
+    padding: 12px 28px;
+    font-family: inherit;
+    font-weight: 800;
+    color: #fff;
+    background: #89b820;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+/* ---------- HUD ---------- */
+
+.gm-hud {
+    width: 100%;
+    max-width: 980px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.gm-badge {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 18px;
+    background: rgba(24, 24, 28, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.gm-badge strong {
+    font-size: 1.05rem;
+    color: #fff;
+}
+
+.gm-badge span {
+    font-size: 0.8rem;
+    color: #b9b4a8;
+}
+
+.gm-back {
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #e8e6e1;
+    background: rgba(24, 24, 28, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.15s ease;
+}
+
+.gm-back:hover {
+    background: rgba(60, 60, 68, 0.95);
+}
+
+/* ---------- Grille ---------- */
+
+.gm-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--cols), 1fr);
+    grid-template-rows: repeat(var(--rows), 1fr);
+    width: min(980px, 96vw);
+    aspect-ratio: calc(var(--cols) / var(--rows));
+    border: 3px solid rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+}
+
+.gm-tile {
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: filter 0.1s ease;
+}
+
+.gm-tile.light {
+    background: #7fb069;
+}
+
+.gm-tile.dark {
+    background: #74a55f;
+}
+
+.gm-tile:hover {
+    filter: brightness(1.15);
+}
+
+/* ---------- Héros ---------- */
+
+.gm-hero {
+    position: absolute;
+    left: calc(var(--x) * 100% / var(--cols));
+    top: calc(var(--y) * 100% / var(--rows));
+    width: calc(100% / var(--cols));
+    height: calc(100% / var(--rows));
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    pointer-events: none;
+    transition: left 0.18s ease, top 0.18s ease;
+}
+
+.gm-hero-svg {
+    height: 165%;
+    width: auto;
+    margin-bottom: 4%;
+    filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.45));
+}
+
+.gm-hint {
+    margin: 0;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.75);
+}
