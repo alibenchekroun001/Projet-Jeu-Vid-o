@@ -3,8 +3,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      salut cest othman
-      salut c'est Ali
+      <h1>Bienvenue dans mon site INDRA ALIAS DOFUS</h1>
     </div>
   );
 }
